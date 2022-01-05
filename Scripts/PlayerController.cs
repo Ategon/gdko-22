@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     //references
     private PlayerInput playerInput;
+    [SerializeField] GameObject playerCharacter;
 
     //variables
     [SerializeField] private float tapWindow;
@@ -45,6 +46,10 @@ public class PlayerController : MonoBehaviour
 
         gameObject.name = $"Player {playerInput.user.id} Controller";
         playerInput.onActionTriggered += ReadAction;
+
+        GameObject pc = Instantiate(playerCharacter, new Vector3(0, 0, 0), Quaternion.identity);
+        pc.GetComponent<PlayerMovement>().playerInput = this;
+        pc.name = $"Player {playerInput.user.id} Character";
     }
 
     void FixedUpdate()
